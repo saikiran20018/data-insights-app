@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<h2>Welcome to Data Insights Dashboard</h2>
+<p>username : saikiran
+    password : sai@1234
+</p>
+<hr><hr>
+
+<h3>Upload CSV File</h3>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+
+{% if data %}
+    <h3>Preview (First 5 Rows)</h3>
+    {{ data|safe }}
+{% endif %}
+
+{% if chart_url %}
+    <h3>Auto generated graph</h3>
+    <img src="{{ chart_url }}" alt='graph' style="max-width: 100%;">
+{% endif %}
+
+{% if ml_error %}
+    <p style="color: red;">{{ml_error}}</p>
+{% endif %}
+
+{% if regression_result %}
+    <h3>{{ regression_result }}</h3>
+{% endif %}
+
+
+{% endblock %}
